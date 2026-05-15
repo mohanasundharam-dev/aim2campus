@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colleges – Aim2Campus</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --blue: #0A4D8C;
+            --blue2: #1565C0;
+            --teal: #00897B;
+            --green: #43A047;
+            --mint: #E0F7F4;
+            --sky: #E3F2FD;
+            --white: #FFFFFF;
+            --off: #F5FAFF;
+            --ink: #0D1B2A;
+            --muted: #5B7A99;
+            --border: #C9DEF5;
+            --grad: linear-gradient(135deg, #0A4D8C 0%, #00897B 100%);
+            --grad2: linear-gradient(135deg, #1565C0 0%, #43A047 100%);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--off);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5vw;
+            height: 68px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow .3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 30px rgba(10, 77, 140, .08);
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.45rem;
+            letter-spacing: -.5px;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo span {
+            -webkit-text-fill-color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: .92rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        .nav-cta {
+            background: var(--grad);
+            color: #fff;
+            border: none;
+            padding: .55rem 1.4rem;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: .9rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity .2s, transform .2s;
+        }
+
+        .nav-cta:hover {
+            opacity: .88;
+            transform: translateY(-1px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--blue);
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 68px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: #fff;
+            padding: 1.5rem 5vw 2rem;
+            border-bottom: 1px solid var(--border);
+            flex-direction: column;
+            gap: 1.2rem;
+            box-shadow: 0 8px 30px rgba(10, 77, 140, .07);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+            padding: .5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-menu .nav-cta {
+            text-align: center;
+            margin-top: .5rem;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            background: var(--ink);
+            padding: 120px 5vw 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 55% 70% at 85% 40%, rgba(0, 137, 123, .18) 0%, transparent 70%),
+                radial-gradient(ellipse 45% 60% at 5% 90%, rgba(10, 77, 140, .14) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 700px;
+            position: relative;
+        }
+
+        .ph-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(0, 137, 123, .15);
+            color: var(--mint);
+            padding: .4rem 1rem;
+            border-radius: 50px;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .5px;
+            margin-bottom: 1.2rem;
+        }
+
+        .ph-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            color: #fff;
+        }
+
+        .ph-title em {
+            font-style: normal;
+            background: linear-gradient(90deg, #4DD0E1, #81C784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ph-sub {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, .5);
+            line-height: 1.75;
+            margin-top: 1rem;
+            max-width: 500px;
+        }
+
+        .ph-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .ph-stat-num {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #4DD0E1, #81C784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ph-stat-lbl {
+            font-size: .78rem;
+            color: rgba(255, 255, 255, .4);
+            font-weight: 500;
+            margin-top: .15rem;
+        }
+
+        /* SEARCH + FILTER BAR */
+        .filter-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 5vw;
+            position: sticky;
+            top: 68px;
+            z-index: 50;
+            box-shadow: 0 4px 20px rgba(10, 77, 140, .05);
+        }
+
+        .filter-inner {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-ico {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: .7rem 1rem .7rem 2.8rem;
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .92rem;
+            color: var(--ink);
+            background: var(--off);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 137, 123, .1);
+            background: #fff;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .fchip {
+            padding: .45rem 1rem;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            font-size: .8rem;
+            font-weight: 500;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+            background: #fff;
+            white-space: nowrap;
+        }
+
+        .fchip:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .fchip.active {
+            background: var(--grad);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(10, 77, 140, .2);
+        }
+
+        .filter-select {
+            padding: .55rem 2rem .55rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .82rem;
+            color: var(--muted);
+            background: var(--off) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%235B7A99' d='M5 7L0 2h10z'/%3E%3C/svg%3E") no-repeat right .8rem center;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            transition: border-color .2s;
+        }
+
+        .filter-select:focus {
+            border-color: var(--teal);
+        }
+
+        .results-count {
+            font-size: .82rem;
+            color: var(--muted);
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        /* MAIN LAYOUT */
+        .page-body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 5vw 80px;
+        }
+
+        /* GRID */
+        .colleges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* COLLEGE CARD */
+        .col-card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .col-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(10, 77, 140, .1);
+        }
+
+        .col-card-header {
+            padding: 1.4rem 1.4rem 0;
+        }
+
+        .col-banner {
+            height: 6px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .col-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-top: .4rem;
+        }
+
+        .col-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .col-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .col-name {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--ink);
+            line-height: 1.3;
+            margin-bottom: .25rem;
+        }
+
+        .col-location {
+            font-size: .78rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+        }
+
+        .col-badges {
+            display: flex;
+            gap: .4rem;
+            flex-wrap: wrap;
+            margin-top: .8rem;
+        }
+
+        .badge {
+            font-size: .68rem;
+            font-weight: 600;
+            padding: .2rem .65rem;
+            border-radius: 50px;
+        }
+
+        .badge-eng {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .badge-med {
+            background: #FCE4EC;
+            color: #C2185B;
+        }
+
+        .badge-arch {
+            background: #EDE7F6;
+            color: #6A1B9A;
+        }
+
+        .badge-pharm {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .badge-arts {
+            background: #FFF8E1;
+            color: #F57F17;
+        }
+
+        .badge-mgmt {
+            background: #E0F7F4;
+            color: #00695C;
+        }
+
+        .badge-govt {
+            background: #E8EAF6;
+            color: #3949AB;
+        }
+
+        .badge-pvt {
+            background: var(--off);
+            color: var(--muted);
+        }
+
+        .badge-top {
+            background: linear-gradient(135deg, #0A4D8C, #00897B);
+            color: #fff;
+        }
+
+        .col-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1rem 1.4rem 0;
+        }
+
+        .col-body {
+            padding: 1rem 1.4rem;
+        }
+
+        .col-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .7rem;
+        }
+
+        .col-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: .15rem;
+        }
+
+        .cii-label {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .cii-val {
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .cii-val.green {
+            color: var(--green);
+        }
+
+        .cii-val.blue {
+            color: var(--blue2);
+        }
+
+        .col-footer {
+            margin-top: auto;
+            padding: 1rem 1.4rem 1.4rem;
+            display: flex;
+            gap: .7rem;
+        }
+
+        .btn-card-primary {
+            flex: 1;
+            background: var(--grad);
+            color: #fff;
+            border: none;
+            padding: .6rem 1rem;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: .82rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: opacity .2s, transform .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+        }
+
+        .btn-card-primary:hover {
+            opacity: .88;
+            transform: translateY(-1px);
+        }
+
+        .btn-card-ghost {
+            background: transparent;
+            color: var(--blue);
+            border: 1.5px solid var(--border);
+            padding: .6rem 1rem;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: .82rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: border-color .2s, color .2s;
+            white-space: nowrap;
+        }
+
+        .btn-card-ghost:hover {
+            border-color: var(--blue);
+            color: var(--blue2);
+        }
+
+        /* FEATURED ribbon */
+        .ribbon {
+            position: absolute;
+            top: 18px;
+            right: -1px;
+            background: var(--grad);
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            padding: .25rem .7rem .25rem .6rem;
+            border-radius: 4px 0 0 4px;
+            box-shadow: -2px 2px 8px rgba(10, 77, 140, .2);
+        }
+
+        /* NO RESULTS */
+        .no-results {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--muted);
+        }
+
+        .no-results .nr-ico {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--ink);
+            margin-bottom: .5rem;
+        }
+
+        /* LOAD MORE */
+        .load-more-wrap {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .btn-load {
+            background: #fff;
+            color: var(--blue);
+            border: 2px solid var(--border);
+            padding: .8rem 2.5rem;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: .95rem;
+            cursor: pointer;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .btn-load:hover {
+            border-color: var(--blue);
+            box-shadow: 0 8px 24px rgba(10, 77, 140, .1);
+        }
+
+        /* CTA STRIP */
+        .cta-strip {
+            background: var(--grad);
+            border-radius: 24px;
+            padding: 2.5rem 2.5rem;
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-strip::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .cta-strip h3 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: -.5px;
+            position: relative;
+        }
+
+        .cta-strip p {
+            color: rgba(255, 255, 255, .65);
+            font-size: .92rem;
+            margin-top: .3rem;
+            position: relative;
+        }
+
+        .cta-strip-actions {
+            display: flex;
+            gap: .8rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--blue);
+            padding: .8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: .9rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            transition: transform .2s, box-shadow .2s;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, .45);
+            padding: .8rem 1.6rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: .9rem;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            transition: border-color .2s, background .2s;
+        }
+
+        .btn-outline-white:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--ink);
+            padding: 40px 5vw 24px;
+            color: rgba(255, 255, 255, .4);
+        }
+
+        .footer-bottom2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: .8rem;
+        }
+
+        .footer-logo2 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links2 {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links2 a {
+            font-size: .8rem;
+            color: rgba(255, 255, 255, .4);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .footer-links2 a:hover {
+            color: var(--mint);
+        }
+
+        /* ANIMS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .6s, transform .6s;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .filter-inner {
+                gap: .6rem;
+            }
+
+            .results-count {
+                order: 5;
+                width: 100%;
+            }
+
+            .colleges-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-strip {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-strip-actions {
+                justify-content: center;
+            }
+        }
+
+        @media(max-width:540px) {
+            .ph-stats {
+                gap: 1.5rem;
+            }
+
+            .col-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav id="mainNav">
+        <a class="logo" href="index.html">Aim2<span>Campus</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#how">How It Works</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="colleges.html">Colleges</a></li>
+            <li><a href="index.html#testimonials">Reviews</a></li>
+        </ul>
+        <a class="nav-cta" href="consulting.html"><span class="sxp">+91 63815 72643</span></a>
+        <a class="nav-cta" href="consulting.html">Free Counselling →</a>
+        <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="consulting.html">Free Counselling</a>
+        <a href="colleges.html">Colleges</a>
+        <a class="nav-cta" href="consulting.html">Free Counselling →</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="hero-inner">
+            <div class="ph-eyebrow">✦ 350+ Partner Colleges</div>
+            <h1 class="ph-title">Find Your Perfect<br><em>College in Tamil Nadu</em></h1>
+            <p class="ph-sub">Browse top engineering, medical, arts and management colleges. Filter by stream, city,
+                quota and cutoff to find your ideal match.</p>
+            <div class="ph-stats">
+                <div>
+                    <div class="ph-stat-num">350+</div>
+                    <div class="ph-stat-lbl">Partner Colleges</div>
+                </div>
+                <div>
+                    <div class="ph-stat-num">30+</div>
+                    <div class="ph-stat-lbl">Cities Covered</div>
+                </div>
+                <div>
+                    <div class="ph-stat-num">All Streams</div>
+                    <div class="ph-stat-lbl">Engg · Medicine · Arts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-inner">
+            <div class="search-wrap">
+                <span class="search-ico">🔍</span>
+                <input class="search-input" type="text" id="searchInput" placeholder="Search college name or city…" />
+            </div>
+            <div class="filter-chips" id="streamFilters">
+                <button class="fchip active" data-stream="All">All</button>
+                <button class="fchip" data-stream="Engineering">⚙️ Engineering</button>
+                <button class="fchip" data-stream="Medicine">⚕️ Medicine</button>
+                <button class="fchip" data-stream="Architecture">📐 Architecture</button>
+                <button class="fchip" data-stream="Pharmacy">💊 Pharmacy</button>
+                <button class="fchip" data-stream="Arts & Science">📚 Arts & Science</button>
+                <button class="fchip" data-stream="Management">🏢 Management</button>
+            </div>
+            <select class="filter-select" id="cityFilter">
+                <option value="All">All Cities</option>
+                <option>Coimbatore</option>
+                <option>Chennai</option>
+                <option>Madurai</option>
+                <option>Trichy</option>
+                <option>Salem</option>
+                <option>Erode</option>
+                <option>Vellore</option>
+                <option>Thanjavur</option>
+            </select>
+            <select class="filter-select" id="typeFilter">
+                <option value="All">All Types</option>
+                <option>Government</option>
+                <option>Government-Aided</option>
+                <option>Private</option>
+            </select>
+            <div class="results-count" id="resultsCount">Showing 0 colleges</div>
+        </div>
+    </div>
+
+    <!-- COLLEGES GRID -->
+    <div class="page-body">
+        <div class="colleges-grid" id="collegesGrid"></div>
+        <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+            <button class="btn-load" id="loadMoreBtn">Load More Colleges ↓</button>
+        </div>
+
+        <!-- CTA STRIP -->
+        <div class="cta-strip reveal">
+            <div>
+                <h3>Can't find the right college?</h3>
+                <p>Our experts know every seat, every cutoff, every college in Tamil Nadu.</p>
+            </div>
+            <div class="cta-strip-actions">
+                <a href="consulting.html" class="btn-white">📋 Book Free Counselling</a>
+                <a href="tel:+916381572643" class="btn-outline-white">📞 Call Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-bottom2">
+            <div class="footer-logo2">Aim2Campus</div>
+            <div class="footer-links2">
+                <a href="index.html">Home</a>
+                <a href="consulting.html">Counselling</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <p>© 2025 Aim2Campus. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const COLLEGES = [
+            { id: 1, name: "PSG College of Technology", city: "Coimbatore", type: "Government-Aided", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🏛️", cutoff: "175+", placement: "97%", seats: "Management · TNEA", naac: "A++", featured: true, color: "#0A4D8C" },
+            { id: 2, name: "Coimbatore Institute of Technology", city: "Coimbatore", type: "Government-Aided", stream: ["Engineering"], streams_display: ["Engineering"], icon: "⚙️", cutoff: "170+", placement: "94%", seats: "Management · TNEA", naac: "A+", featured: false, color: "#1565C0" },
+            { id: 3, name: "Amrita School of Engineering", city: "Coimbatore", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🎓", cutoff: "165+", placement: "96%", seats: "Management · NRI", naac: "A++", featured: true, color: "#00897B" },
+            { id: 4, name: "Sri Ramakrishna Engineering College", city: "Coimbatore", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🔬", cutoff: "162+", placement: "91%", seats: "Management · TNEA", naac: "A+", featured: false, color: "#43A047" },
+            { id: 5, name: "Saveetha Dental College", city: "Chennai", type: "Private", stream: ["Medicine"], streams_display: ["BDS", "Medicine"], icon: "🦷", cutoff: "NEET 400+", placement: "95%", seats: "Management · NRI", naac: "A+", featured: true, color: "#C2185B" },
+            { id: 6, name: "KMCH Medical College", city: "Coimbatore", type: "Private", stream: ["Medicine"], streams_display: ["MBBS", "Medicine"], icon: "⚕️", cutoff: "NEET 450+", placement: "98%", seats: "Management · NRI", naac: "A", featured: false, color: "#C2185B" },
+            { id: 7, name: "Sri Manakula Vinayagar Medical College", city: "Pondicherry", type: "Private", stream: ["Medicine"], streams_display: ["MBBS", "Medicine"], icon: "🏥", cutoff: "NEET 440+", placement: "96%", seats: "Management", naac: "A", featured: false, color: "#AD1457" },
+            { id: 8, name: "Meenakshi Ammal Dental College", city: "Chennai", type: "Private", stream: ["Medicine"], streams_display: ["BDS"], icon: "😁", cutoff: "NEET 380+", placement: "92%", seats: "Management · NRI", naac: "A", featured: false, color: "#880E4F" },
+            { id: 9, name: "School of Architecture & Planning", city: "Chennai", type: "Government", stream: ["Architecture"], streams_display: ["Architecture"], icon: "📐", cutoff: "NATA 100+", placement: "89%", seats: "Government", naac: "A+", featured: false, color: "#6A1B9A" },
+            { id: 10, name: "Mookambigai College of Engineering", city: "Trichy", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🔧", cutoff: "155+", placement: "88%", seats: "Management · TNEA", naac: "A", featured: false, color: "#1565C0" },
+            { id: 11, name: "KSR College of Engineering", city: "Erode", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🏗️", cutoff: "158+", placement: "90%", seats: "Management · TNEA", naac: "A", featured: false, color: "#0A4D8C" },
+            { id: 12, name: "Kongu Engineering College", city: "Erode", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "💡", cutoff: "168+", placement: "93%", seats: "Management · TNEA", naac: "A+", featured: true, color: "#00695C" },
+            { id: 13, name: "JSS College of Pharmacy", city: "Ooty", type: "Private", stream: ["Pharmacy"], streams_display: ["Pharm.D", "B.Pharm"], icon: "💊", cutoff: "NEET 300+", placement: "91%", seats: "Management · NRI", naac: "A++", featured: true, color: "#2E7D32" },
+            { id: 14, name: "SASTRA University", city: "Thanjavur", type: "Private", stream: ["Engineering", "Arts & Science"], streams_display: ["Engineering", "Arts & Science"], icon: "🎯", cutoff: "160+", placement: "94%", seats: "Management", naac: "A+", featured: false, color: "#F57F17" },
+            { id: 15, name: "VIT University", city: "Vellore", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🌟", cutoff: "VITEEE", placement: "98%", seats: "Management · Direct", naac: "A++", featured: true, color: "#0A4D8C" },
+            { id: 16, name: "Madurai Kamaraj University", city: "Madurai", type: "Government", stream: ["Arts & Science"], streams_display: ["Arts & Science", "Management"], icon: "📚", cutoff: "Open", placement: "85%", seats: "Government", naac: "A+", featured: false, color: "#F57F17" },
+            { id: 17, name: "PSG Institute of Management", city: "Coimbatore", type: "Government-Aided", stream: ["Management"], streams_display: ["MBA", "MCA"], icon: "🏢", cutoff: "CAT/TANCET", placement: "96%", seats: "Management", naac: "A+", featured: false, color: "#00695C" },
+            { id: 18, name: "Bharathiar University", city: "Coimbatore", type: "Government", stream: ["Arts & Science", "Management"], streams_display: ["Arts & Science", "Management"], icon: "🎓", cutoff: "Open", placement: "88%", seats: "Government", naac: "A+", featured: false, color: "#1565C0" },
+            { id: 19, name: "SRM Institute of Science & Technology", city: "Chennai", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🔬", cutoff: "SRMJEE", placement: "97%", seats: "Management · NRI", naac: "A++", featured: true, color: "#00897B" },
+            { id: 20, name: "Sri Ramachandra Institute", city: "Chennai", type: "Private", stream: ["Medicine"], streams_display: ["MBBS", "BDS"], icon: "🏥", cutoff: "NEET 460+", placement: "98%", seats: "Management · NRI", naac: "A++", featured: true, color: "#AD1457" },
+            { id: 21, name: "Anna University CEG", city: "Chennai", type: "Government", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🏛️", cutoff: "195+", placement: "98%", seats: "TNEA Only", naac: "A++", featured: true, color: "#0A4D8C" },
+            { id: 22, name: "Government College of Technology", city: "Coimbatore", type: "Government", stream: ["Engineering"], streams_display: ["Engineering"], icon: "⚙️", cutoff: "185+", placement: "95%", seats: "TNEA Only", naac: "A+", featured: false, color: "#1B5E20" },
+            { id: 23, name: "Kumaraguru College of Technology", city: "Coimbatore", type: "Private", stream: ["Engineering"], streams_display: ["Engineering"], icon: "🎯", cutoff: "164+", placement: "92%", seats: "Management · TNEA", naac: "A+", featured: false, color: "#0A4D8C" },
+            { id: 24, name: "Dr. MGR Medical University", city: "Chennai", type: "Government", stream: ["Medicine"], streams_display: ["MBBS", "BDS", "Nursing"], icon: "⚕️", cutoff: "NEET 430+", placement: "97%", seats: "Government", naac: "A", featured: false, color: "#880E4F" },
+            { id: 25, name: "Kongu Engineering College", city: "Perundurai, Erode", type: "Private", stream: ["Engineering"], streams_display: ["CSE", "AI & DS", "ECE", "EEE", "Mechanical"], icon: "🏛️", cutoff: "TNEA 19K+", placement: "90%+", seats: "Self Financing", naac: "A++", featured: true, color: "#1565C0" },
+
+            { id: 26, name: "Bannari Amman Institute of Technology", city: "Sathyamangalam, Erode", type: "Private", stream: ["Engineering"], streams_display: ["CSE", "AI", "ECE", "IT", "Mechanical"], icon: "💻", cutoff: "TNEA 20K+", placement: "92%", seats: "Self Financing", naac: "A+", featured: true, color: "#00897B" },
+
+            { id: 27, name: "Erode Sengunthar Engineering College", city: "Perundurai, Erode", type: "Private", stream: ["Engineering"], streams_display: ["CSE", "ECE", "EEE", "Civil"], icon: "⚙️", cutoff: "TNEA 60K+", placement: "80%+", seats: "Self Financing", naac: "A", featured: false, color: "#6A1B9A" },
+
+            { id: 28, name: "Institute of Road and Transport Technology", city: "Erode", type: "Government", stream: ["Engineering"], streams_display: ["CSE", "ECE", "Mechanical", "Civil"], icon: "🛣️", cutoff: "TNEA 46K+", placement: "85%", seats: "Government", naac: "A", featured: false, color: "#F57C00" },
+
+            { id: 29, name: "Nandha Engineering College", city: "Perundurai, Erode", type: "Private", stream: ["Engineering"], streams_display: ["CSE", "IT", "ECE", "EEE"], icon: "🔧", cutoff: "TNEA 26K+", placement: "85%", seats: "Self Financing", naac: "A+", featured: false, color: "#3949AB" },
+
+            { id: 30, name: "Velalar College of Engineering and Technology", city: "Erode", type: "Private", stream: ["Engineering"], streams_display: ["CSE", "ECE", "AI & DS"], icon: "🏗️", cutoff: "TNEA 24K+", placement: "80%+", seats: "Self Financing", naac: "A", featured: false, color: "#2E7D32" },
+
+            { id: 31, name: "Government Erode Medical College", city: "Perundurai, Erode", type: "Government", stream: ["Medicine"], streams_display: ["MBBS"], icon: "⚕️", cutoff: "NEET 500+", placement: "95%", seats: "Government", naac: "-", featured: true, color: "#C62828" },
+
+            { id: 32, name: "IRT Perundurai Medical College", city: "Perundurai, Erode", type: "Government", stream: ["Medicine"], streams_display: ["MBBS", "Nursing"], icon: "🏥", cutoff: "NEET 480+", placement: "95%", seats: "Government", naac: "-", featured: false, color: "#AD1457" },
+
+            { id: 33, name: "Erode Arts and Science College", city: "Erode", type: "Private", stream: ["Arts & Science"], streams_display: ["B.Sc", "B.Com", "BCA", "MBA"], icon: "📚", cutoff: "Merit Based", placement: "75%", seats: "Self Financing", naac: "A", featured: false, color: "#5D4037" },
+
+            { id: 34, name: "Kongu Arts and Science College", city: "Erode", type: "Private", stream: ["Arts & Science"], streams_display: ["BCA", "B.Com", "B.Sc", "M.Sc"], icon: "🎓", cutoff: "Merit Based", placement: "80%", seats: "Self Financing", naac: "A+", featured: false, color: "#0277BD" },
+
+            { id: 35, name: "Chikkaiah Naicker College", city: "Erode", type: "Government Aided", stream: ["Arts & Science"], streams_display: ["BA", "B.Sc", "B.Com"], icon: "📖", cutoff: "Merit Based", placement: "70%", seats: "Government Aided", naac: "A", featured: false, color: "#7B1FA2" },
+
+            { id: 36, name: "Vellalar College for Women", city: "Erode", type: "Private", stream: ["Arts & Science"], streams_display: ["B.Sc", "B.Com", "MCA"], icon: "👩‍🎓", cutoff: "Merit Based", placement: "80%", seats: "Self Financing", naac: "A+", featured: false, color: "#00838F" },
+
+            { id: 37, name: "P.K.R Arts College for Women", city: "Gobichettipalayam, Erode", type: "Private", stream: ["Arts & Science"], streams_display: ["BA", "B.Sc", "B.Com"], icon: "🏫", cutoff: "Merit Based", placement: "75%", seats: "Self Financing", naac: "A", featured: false, color: "#6D4C41" },
+
+            { id: 38, name: "Government Arts and Science College", city: "Modakurichi, Erode", type: "Government", stream: ["Arts & Science"], streams_display: ["BA", "B.Sc", "B.Com"], icon: "📘", cutoff: "Merit Based", placement: "60%", seats: "Government", naac: "-", featured: false, color: "#455A64" }
+
+
+        ];
+
+        const BADGE_MAP = {
+            "Engineering": "badge-eng",
+            "Medicine": "badge-med",
+            "Architecture": "badge-arch",
+            "Pharmacy": "badge-pharm",
+            "Arts & Science": "badge-arts",
+            "Management": "badge-mgmt",
+            "MBBS": "badge-med",
+            "BDS": "badge-med",
+            "Nursing": "badge-med",
+            "MBA": "badge-mgmt",
+            "MCA": "badge-mgmt",
+            "B.Pharm": "badge-pharm",
+            "Pharm.D": "badge-pharm",
+            "Pharm.D": "badge-pharm",
+        };
+        const TYPE_BADGE = {
+            "Government": "badge-govt",
+            "Government-Aided": "badge-govt",
+            "Private": "badge-pvt",
+        };
+        const GRAD_MAP = {
+            "#0A4D8C": "linear-gradient(90deg,#0A4D8C,#00897B)",
+            "#1565C0": "linear-gradient(90deg,#1565C0,#43A047)",
+            "#00897B": "linear-gradient(90deg,#00897B,#43A047)",
+            "#43A047": "linear-gradient(90deg,#43A047,#00897B)",
+            "#C2185B": "linear-gradient(90deg,#C2185B,#880E4F)",
+            "#AD1457": "linear-gradient(90deg,#AD1457,#C2185B)",
+            "#880E4F": "linear-gradient(90deg,#880E4F,#AD1457)",
+            "#6A1B9A": "linear-gradient(90deg,#6A1B9A,#4527A0)",
+            "#2E7D32": "linear-gradient(90deg,#2E7D32,#1B5E20)",
+            "#F57F17": "linear-gradient(90deg,#F57F17,#E65100)",
+            "#00695C": "linear-gradient(90deg,#00695C,#00897B)",
+            "#1B5E20": "linear-gradient(90deg,#1B5E20,#2E7D32)",
+        };
+
+        function makeCard(c) {
+            const badgesHtml = c.streams_display.map(s => `<span class="badge ${BADGE_MAP[s] || 'badge-pvt'}">${s}</span>`).join('');
+            const typeBadge = `<span class="badge ${TYPE_BADGE[c.type] || 'badge-pvt'}">${c.type}</span>`;
+            const ribbon = c.featured ? `<div class="ribbon">Top Pick</div>` : '';
+            const grad = GRAD_MAP[c.color] || 'linear-gradient(90deg,#0A4D8C,#00897B)';
+            return `
+    <div class="col-card">
+      <div class="col-banner" style="background:${grad}"></div>
+      ${ribbon}
+      <div class="col-card-header">
+        <div class="col-top">
+          <div class="col-logo" style="background:${c.color}18">${c.icon}</div>
+          <div class="col-meta">
+            <div class="col-name">${c.name}</div>
+            <div class="col-location">📍 ${c.city}</div>
+          </div>
+        </div>
+        <div class="col-badges">
+          ${badgesHtml}
+          ${typeBadge}
+          ${c.naac ? `<span class="badge badge-top">NAAC ${c.naac}</span>` : ''}
+        </div>
+      </div>
+      <div class="col-divider"></div>
+      <div class="col-body">
+        <div class="col-info-grid">
+          <div class="col-info-item">
+            <span class="cii-label">Cutoff / Score</span>
+            <span class="cii-val blue">${c.cutoff}</span>
+          </div>
+          <div class="col-info-item">
+            <span class="cii-label">Placement</span>
+            <span class="cii-val green">${c.placement}</span>
+          </div>
+          <div class="col-info-item">
+            <span class="cii-label">Admission</span>
+            <span class="cii-val">${c.seats}</span>
+          </div>
+          <div class="col-info-item">
+            <span class="cii-label">NAAC Grade</span>
+            <span class="cii-val">${c.naac || 'N/A'}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-footer">
+        <a href="consulting.html" class="btn-card-primary">Get Admission Help ✦</a>
+        <a href="consulting.html" class="btn-card-ghost">Details →</a>
+      </div>
+    </div>
+  `;
+        }
+
+        const PER_PAGE = 12;
+        let visibleCount = PER_PAGE;
+        let filtered = [...COLLEGES];
+
+        function applyFilters() {
+            const q = document.getElementById('searchInput').value.trim().toLowerCase();
+            const stream = document.querySelector('.fchip.active')?.dataset.stream || 'All';
+            const city = document.getElementById('cityFilter').value;
+            const type = document.getElementById('typeFilter').value;
+
+            filtered = COLLEGES.filter(c => {
+                if (q && !c.name.toLowerCase().includes(q) && !c.city.toLowerCase().includes(q)) return false;
+                if (stream !== 'All' && !c.stream.includes(stream)) return false;
+                if (city !== 'All' && c.city !== city) return false;
+                if (type !== 'All' && c.type !== type) return false;
+                return true;
+            });
+            // featured first
+            filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+            visibleCount = PER_PAGE;
+            render();
+        }
+
+        function render() {
+            const grid = document.getElementById('collegesGrid');
+            const slice = filtered.slice(0, visibleCount);
+            if (slice.length === 0) {
+                grid.innerHTML = `<div class="no-results"><div class="nr-ico">🔍</div><h3>No colleges found</h3><p>Try adjusting your filters or search term.</p></div>`;
+            } else {
+                grid.innerHTML = slice.map(makeCard).join('');
+            }
+            document.getElementById('resultsCount').textContent = `Showing ${Math.min(visibleCount, filtered.length)} of ${filtered.length} colleges`;
+            document.getElementById('loadMoreWrap').style.display = filtered.length > visibleCount ? 'block' : 'none';
+
+            // reveal
+            grid.querySelectorAll('.col-card').forEach((el, i) => {
+                el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+                setTimeout(() => { el.style.transition = 'opacity .5s,transform .5s'; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, i * 40);
+            });
+        }
+
+        // Events
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('cityFilter').addEventListener('change', applyFilters);
+        document.getElementById('typeFilter').addEventListener('change', applyFilters);
+        document.getElementById('streamFilters').addEventListener('click', e => {
+            if (e.target.classList.contains('fchip')) {
+                document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                applyFilters();
+            }
+        });
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+            visibleCount += PER_PAGE;
+            render();
+        });
+
+        // Nav scroll
+        window.addEventListener('scroll', () => document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20));
+
+        // Hamburger
+        document.getElementById('burger').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('open'));
+        document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+
+        // Reveal observer
+        const ro = new IntersectionObserver(e => e.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }), { threshold: .12 });
+        document.querySelectorAll('.reveal').forEach(r => ro.observe(r));
+
+        // Init
+        applyFilters();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Free Counselling – Aim2Campus</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue: #0A4D8C; --blue2: #1565C0; --teal: #00897B; --green: #43A047;
+    --mint: #E0F7F4; --sky: #E3F2FD; --white: #FFFFFF; --off: #F5FAFF;
+    --ink: #0D1B2A; --muted: #5B7A99; --border: #C9DEF5;
+    --grad: linear-gradient(135deg,#0A4D8C 0%,#00897B 100%);
+    --grad2: linear-gradient(135deg,#1565C0 0%,#43A047 100%);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;letter-spacing:-.5px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+  .logo span{-webkit-text-fill-color:var(--green);}
+  .nav-links{display:flex;gap:2.2rem;list-style:none;}
+  .nav-links a{font-size:.92rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--blue);}
+  .nav-cta{background:var(--grad);color:#fff;border:none;padding:.55rem 1.4rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;transition:opacity .2s;}
+  .nav-cta:hover{opacity:.88;}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--blue);border-radius:2px;}
+  .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:99;background:#fff;padding:1.5rem 5vw 2rem;border-bottom:1px solid var(--border);flex-direction:column;gap:1.2rem;box-shadow:0 8px 30px rgba(10,77,140,.07);}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;padding:.5rem 0;border-bottom:1px solid var(--border);}
+  .mobile-menu .nav-cta{text-align:center;margin-top:.5rem;}
+
+  /* PAGE HERO */
+  .page-hero{
+    background: var(--ink);
+    padding: 130px 5vw 70px;
+    position: relative; overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+  }
+  .page-hero::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 50% 70% at 80% 50%,rgba(0,137,123,.18) 0%,transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%,rgba(10,77,140,.14) 0%,transparent 60%);
+  }
+  .ph-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,137,123,.15);color:var(--mint);padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600;letter-spacing:.5px;margin-bottom:1.2rem;position:relative;}
+  .ph-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.1;letter-spacing:-1.5px;color:#fff;position:relative;}
+  .ph-title em{font-style:normal;background:linear-gradient(90deg,#4DD0E1,#81C784);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .ph-sub{font-size:1rem;color:rgba(255,255,255,.5);line-height:1.75;margin-top:1rem;max-width:440px;position:relative;}
+  .ph-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.8rem;position:relative;}
+  .ph-chip{padding:.35rem .9rem;border-radius:50px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);font-size:.78rem;color:rgba(255,255,255,.6);font-weight:500;}
+  .ph-visual{position:relative;display:flex;justify-content:center;align-items:center;}
+  .trust-ring{
+    width:280px;height:280px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.08);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    animation:spin 20s linear infinite;
+  }
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .trust-ring::before{content:'';position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(255,255,255,.05);}
+  .trust-center{
+    width:180px;height:180px;border-radius:50%;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    animation:spin 20s linear infinite reverse;
+    text-align:center;padding:1rem;
+  }
+  .trust-num{font-family:'Syne',sans-serif;font-weight:800;font-size:2.2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .trust-lbl{font-size:.72rem;color:rgba(255,255,255,.5);font-weight:500;margin-top:.3rem;}
+  .orbit-dot{
+    position:absolute;width:44px;height:44px;border-radius:12px;
+    background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.2);
+    display:grid;place-items:center;font-size:1.2rem;
+  }
+  .od1{top:-8px;left:50%;transform:translateX(-50%);}
+  .od2{right:-8px;top:50%;transform:translateY(-50%);}
+  .od3{bottom:-8px;left:50%;transform:translateX(-50%);}
+  .od4{left:-8px;top:50%;transform:translateY(-50%);}
+
+  /* MAIN LAYOUT */
+  .main-wrap{
+    max-width:1100px;margin:0 auto;
+    padding:60px 5vw 80px;
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:3rem;
+    align-items:start;
+  }
+
+  /* FORM CARD */
+  .form-card{
+    background:#fff;
+    border-radius:28px;
+    padding:2.5rem;
+    border:1px solid var(--border);
+    box-shadow:0 20px 60px rgba(10,77,140,.07);
+  }
+  .form-title{
+    font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;
+    color:var(--ink);margin-bottom:.4rem;letter-spacing:-.5px;
+  }
+  .form-subtitle{font-size:.9rem;color:var(--muted);margin-bottom:2rem;line-height:1.6;}
+
+  /* Progress */
+  .progress-bar{
+    display:flex;gap:.5rem;align-items:center;margin-bottom:2rem;
+  }
+  .prog-step{
+    flex:1;height:4px;border-radius:50px;
+    background:var(--border);
+    transition:background .4s;
+  }
+  .prog-step.active{background:var(--grad);}
+  .prog-label{font-size:.75rem;color:var(--muted);margin-left:.3rem;white-space:nowrap;}
+
+  /* Step panels */
+  .step-panel{display:none;}
+  .step-panel.active{display:block;}
+
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .form-group{margin-bottom:1.2rem;}
+  .form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:.45rem;letter-spacing:.2px;}
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    width:100%;padding:.75rem 1rem;
+    border:1.5px solid var(--border);
+    border-radius:12px;
+    font-family:'DM Sans',sans-serif;font-size:.93rem;color:var(--ink);
+    background:var(--off);outline:none;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{
+    border-color:var(--teal);
+    box-shadow:0 0 0 3px rgba(0,137,123,.1);
+    background:#fff;
+  }
+  .form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235B7A99' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;}
+  .form-group textarea{resize:vertical;min-height:90px;}
+  .form-hint{font-size:.75rem;color:var(--muted);margin-top:.35rem;}
+
+  /* Stream chips */
+  .stream-chips{display:flex;flex-wrap:wrap;gap:.6rem;}
+  .chip-input{position:absolute;opacity:0;pointer-events:none;}
+  .chip-label{
+    padding:.45rem 1rem;border-radius:50px;
+    border:1.5px solid var(--border);
+    font-size:.82rem;font-weight:500;color:var(--muted);
+    cursor:pointer;transition:all .2s;
+    user-select:none;
+  }
+  .chip-input:checked+.chip-label{
+    background:var(--grad);color:#fff;border-color:transparent;
+    box-shadow:0 4px 12px rgba(10,77,140,.2);
+  }
+
+  /* Slot grid */
+  .slot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;}
+  .slot-input{position:absolute;opacity:0;pointer-events:none;}
+  .slot-label{
+    display:block;text-align:center;
+    padding:.55rem .5rem;border-radius:10px;
+    border:1.5px solid var(--border);
+    font-size:.8rem;font-weight:500;color:var(--muted);
+    cursor:pointer;transition:all .2s;
+  }
+  .slot-input:checked+.slot-label{background:var(--sky);color:var(--blue2);border-color:var(--blue2);font-weight:600;}
+
+  /* Buttons */
+  .btn-next{
+    background:var(--grad);color:#fff;border:none;
+    width:100%;padding:1rem;border-radius:14px;
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;
+    cursor:pointer;margin-top:.5rem;
+    transition:transform .2s,box-shadow .2s;
+    box-shadow:0 8px 24px rgba(10,77,140,.2);
+    display:flex;align-items:center;justify-content:center;gap:.5rem;
+  }
+  .btn-next:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(10,77,140,.28);}
+  .btn-prev{
+    background:transparent;color:var(--muted);border:1.5px solid var(--border);
+    padding:.7rem 1.5rem;border-radius:14px;
+    font-family:'DM Sans',sans-serif;font-weight:500;font-size:.9rem;
+    cursor:pointer;margin-top:.5rem;transition:border-color .2s,color .2s;
+  }
+  .btn-prev:hover{border-color:var(--blue);color:var(--blue);}
+  .btn-row{display:flex;gap:1rem;align-items:center;}
+  .btn-row .btn-prev{white-space:nowrap;}
+
+  /* Success */
+  .success-state{
+    display:none;text-align:center;padding:2rem 1rem;
+  }
+  .success-state.show{display:block;}
+  .success-icon{
+    width:80px;height:80px;border-radius:50%;
+    background:linear-gradient(135deg,#E8F5E9,#E0F7F4);
+    display:grid;place-items:center;font-size:2.5rem;
+    margin:0 auto 1.5rem;
+    border:2px solid var(--mint);
+  }
+  .success-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:var(--ink);margin-bottom:.8rem;}
+  .success-sub{font-size:.97rem;color:var(--muted);line-height:1.75;}
+  .success-details{
+    background:var(--off);border-radius:16px;padding:1.2rem 1.5rem;
+    border:1px solid var(--border);margin:1.5rem 0;text-align:left;
+  }
+  .success-detail-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;font-size:.88rem;}
+  .success-detail-row:not(:last-child){border-bottom:1px solid var(--border);}
+  .success-detail-label{color:var(--muted);}
+  .success-detail-value{font-weight:600;color:var(--ink);}
+
+  /* SIDEBAR */
+  .sidebar{display:flex;flex-direction:column;gap:1.5rem;}
+  .sidebar-card{
+    background:#fff;border-radius:20px;padding:1.6rem;
+    border:1px solid var(--border);
+  }
+  .sc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink);margin-bottom:1.2rem;}
+  .contact-item{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1rem;}
+  .contact-ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex-shrink:0;}
+  .contact-detail{}
+  .contact-label{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+  .contact-value{font-size:.9rem;font-weight:600;color:var(--ink);text-decoration:none;}
+  .contact-value:hover{color:var(--teal);}
+
+  .office-item{margin-bottom:1rem;}
+  .office-city{font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:.2rem;}
+  .office-addr{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+  .guarantee-badge{
+    background:linear-gradient(135deg,var(--mint),var(--sky));
+    border-radius:16px;padding:1.4rem;text-align:center;
+    border:1px solid var(--border);
+  }
+  .gb-icon{font-size:2.5rem;margin-bottom:.6rem;}
+  .gb-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--ink);margin-bottom:.4rem;}
+  .gb-desc{font-size:.82rem;color:var(--muted);line-height:1.65;}
+
+  /* FAQ */
+  .faq-section{max-width:1100px;margin:0 auto;padding:0 5vw 80px;}
+  .faq-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--ink);margin-bottom:1.5rem;}
+  .faq-item{border-bottom:1px solid var(--border);}
+  .faq-q{
+    width:100%;text-align:left;padding:1.1rem 0;
+    background:none;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;color:var(--ink);
+  }
+  .faq-q .faq-icon{font-size:1rem;color:var(--muted);transition:transform .3s;}
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .faq-item.open .faq-a{max-height:200px;}
+  .faq-a p{padding-bottom:1.1rem;font-size:.9rem;color:var(--muted);line-height:1.75;}
+
+  /* FOOTER */
+  footer{background:var(--ink);padding:40px 5vw 24px;color:rgba(255,255,255,.4);}
+  .footer-bottom2{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;}
+  .footer-logo2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .footer-links2{display:flex;gap:1.5rem;}
+  .footer-links2 a{font-size:.8rem;color:rgba(255,255,255,.4);text-decoration:none;}
+  .footer-links2 a:hover{color:var(--mint);}
+
+  /* ANIMS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .nav-links,.nav-cta{display:none;} .hamburger{display:flex;}
+    .page-hero{grid-template-columns:1fr;padding-top:100px;gap:2rem;}
+    .ph-visual{display:none;}
+    .main-wrap{grid-template-columns:1fr;gap:2rem;}
+    .sidebar{order:-1;}
+    .form-row{grid-template-columns:1fr;}
+    .slot-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:540px){
+    .form-card{padding:1.6rem;}
+    .slot-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Aim2<span>Campus</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#how">How It Works</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="colleges.html">Colleges</a></li>
+    <li><a href="index.html#testimonials">Reviews</a></li>
+  </ul>
+  <a class="nav-cta" href="consulting.html"><span class="sxp">+91 63815 72643</span></a>
+  <a class="nav-cta" href="consulting.html">Free Counselling →</a>
+  <button class="hamburger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="colleges.html">Colleges</a>
+  <a href="consulting.html">Free Counselling</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div style="position:relative">
+    <div class="ph-eyebrow">✦ Free Counselling Session</div>
+    <h1 class="ph-title">Book Your<br><em>Expert Guidance</em><br>Session Today</h1>
+    <p class="ph-sub">Fill the form below and our senior counsellor will call you within 2 hours. 100% free, no obligations.</p>
+    <div class="ph-chips">
+      <span class="ph-chip">⚙️ Engineering</span>
+      <span class="ph-chip">⚕️ Medicine</span>
+      <span class="ph-chip">🏢 Management Quota</span>
+      <span class="ph-chip">📐 Architecture</span>
+      <span class="ph-chip">💊 Pharmacy</span>
+    </div>
+  </div>
+  <div class="ph-visual">
+    <div class="trust-ring">
+      <div class="orbit-dot od1">⚙️</div>
+      <div class="orbit-dot od2">⚕️</div>
+      <div class="orbit-dot od3">🎓</div>
+      <div class="orbit-dot od4">📋</div>
+      <div class="trust-center" style="animation-direction:reverse">
+        <div class="trust-num">10K+</div>
+        <div class="trust-lbl">Students<br>Counselled</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-wrap">
+
+  <!-- FORM -->
+  <div class="form-card">
+    <!-- form content -->
+    <div id="formContent">
+      <div class="form-title">Start Your Application</div>
+      <div class="form-subtitle">Takes less than 3 minutes · Completely free · No spam</div>
+
+      <!-- Progress -->
+      <div class="progress-bar">
+        <div class="prog-step active" id="p1"></div>
+        <div class="prog-step" id="p2"></div>
+        <div class="prog-step" id="p3"></div>
+        <span class="prog-label" id="progLabel">Step 1 of 3</span>
+      </div>
+
+      <!-- STEP 1: Personal Info -->
+      <div class="step-panel active" id="s1">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student Name *</label>
+            <input type="text" id="studentName" placeholder="Eg. Arun Kumar" required/>
+          </div>
+          <div class="form-group">
+            <label>Parent / Guardian Name *</label>
+            <input type="text" id="parentName" placeholder="Eg. Ravi Kumar"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="mobile" placeholder="+91 98765 43210" maxlength="13"/>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="whatsapp" placeholder="Same as mobile"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="you@email.com"/>
+          </div>
+          <div class="form-group">
+            <label>City / District *</label>
+            <select id="city">
+              <option value="">Select District</option>
+              <option>Coimbatore</option><option>Chennai</option><option>Madurai</option>
+              <option>Erode</option><option>Salem</option><option>Trichy</option>
+              <option>Tiruppur</option><option>Vellore</option><option>Thanjavur</option>
+              <option>Tirunelveli</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-next" onclick="goStep(2)">Continue → Personal Details</button>
+      </div>
+
+      <!-- STEP 2: Academic Info -->
+      <div class="step-panel" id="s2">
+        <div class="form-row">
+          <div class="form-group">
+            <label>12th Board *</label>
+            <select id="board">
+              <option value="">Select Board</option>
+              <option>Tamil Nadu State Board</option>
+              <option>CBSE</option><option>ICSE</option><option>Matriculation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>12th Marks / % *</label>
+            <input type="number" id="marks" placeholder="Eg. 85" min="0" max="100"/>
+            <div class="form-hint">Enter your overall percentage or CGPA</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Preferred Stream *</label>
+          <div class="stream-chips">
+            <input type="radio" name="stream" id="st1" class="chip-input" value="Engineering"/>
+            <label for="st1" class="chip-label">⚙️ Engineering</label>
+            <input type="radio" name="stream" id="st2" class="chip-input" value="Medicine"/>
+            <label for="st2" class="chip-label">⚕️ Medicine (MBBS)</label>
+            <input type="radio" name="stream" id="st3" class="chip-input" value="BDS"/>
+            <label for="st3" class="chip-label">🦷 BDS</label>
+            <input type="radio" name="stream" id="st4" class="chip-input" value="Architecture"/>
+            <label for="st4" class="chip-label">📐 Architecture</label>
+            <input type="radio" name="stream" id="st5" class="chip-input" value="Pharmacy"/>
+            <label for="st5" class="chip-label">💊 Pharmacy</label>
+            <input type="radio" name="stream" id="st6" class="chip-input" value="Arts & Science"/>
+            <label for="st6" class="chip-label">📚 Arts & Science</label>
+            <input type="radio" name="stream" id="st7" class="chip-input" value="Management"/>
+            <label for="st7" class="chip-label">🏢 MBA/MCA</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Quota Preference</label>
+            <select id="quota">
+              <option value="">Any</option>
+              <option>Government Counselling (TNEA/NEET)</option>
+              <option>Management Quota</option>
+              <option>NRI Quota</option>
+              <option>Lateral Entry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Budget Range (Annual)</label>
+            <select id="budget">
+              <option value="">Select Budget</option>
+              <option>Below ₹1 Lakh</option>
+              <option>₹1 – 2 Lakh</option>
+              <option>₹2 – 5 Lakh</option>
+              <option>₹5 – 10 Lakh</option>
+              <option>Above ₹10 Lakh</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Additional Information</label>
+          <textarea id="notes" placeholder="Any specific college preferences, medical conditions, scholarship requirements, etc."></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn-prev" onclick="goStep(1)">← Back</button>
+          <button class="btn-next" onclick="goStep(3)" style="flex:1">Continue → Choose Slot</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Schedule -->
+      <div class="step-panel" id="s3">
+        <div class="form-group">
+          <label>Select Preferred Date *</label>
+          <input type="date" id="date"/>
+        </div>
+        <div class="form-group">
+          <label>Preferred Time Slot *</label>
+          <div class="slot-grid">
+            <div><input type="radio" name="slot" id="sl1" class="slot-input" value="9:00 AM"/><label for="sl1" class="slot-label">9:00 AM</label></div>
+            <div><input type="radio" name="slot" id="sl2" class="slot-input" value="10:30 AM"/><label for="sl2" class="slot-label">10:30 AM</label></div>
+            <div><input type="radio" name="slot" id="sl3" class="slot-input" value="12:00 PM"/><label for="sl3" class="slot-label">12:00 PM</label></div>
+            <div><input type="radio" name="slot" id="sl4" class="slot-input" value="2:00 PM"/><label for="sl4" class="slot-label">2:00 PM</label></div>
+            <div><input type="radio" name="slot" id="sl5" class="slot-input" value="3:30 PM"/><label for="sl5" class="slot-label">3:30 PM</label></div>
+            <div><input type="radio" name="slot" id="sl6" class="slot-input" value="5:00 PM"/><label for="sl6" class="slot-label">5:00 PM</label></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Preferred Mode</label>
+          <div class="stream-chips">
+            <input type="radio" name="mode" id="mo1" class="chip-input" value="Phone Call" checked/>
+            <label for="mo1" class="chip-label">📞 Phone Call</label>
+            <input type="radio" name="mode" id="mo2" class="chip-input" value="Video Call"/>
+            <label for="mo2" class="chip-label">💻 Video Call</label>
+            <input type="radio" name="mode" id="mo3" class="chip-input" value="In Person"/>
+            <label for="mo3" class="chip-label">🏢 In Person</label>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-prev" onclick="goStep(2)">← Back</button>
+          <button class="btn-next" onclick="submitForm()" style="flex:1">🎯 Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">You're All Set!</div>
+      <p class="success-sub">Your counselling session has been booked. Our expert will contact you at your chosen time slot.</p>
+      <div class="success-details" id="successDetails"></div>
+      <a href="colleges.html" class="btn-next" style="text-decoration:none;display:inline-flex;margin-top:0">Explore Colleges →</a>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="guarantee-badge">
+      <div class="gb-icon">🛡️</div>
+      <div class="gb-title">100% Free & Confidential</div>
+      <div class="gb-desc">Your information is never shared with third parties. This consultation is absolutely free — no strings attached.</div>
+    </div>
+    <div class="sidebar-card reveal">
+      <div class="sc-title">📞 Contact Us Directly</div>
+      <div class="contact-item">
+        <div class="contact-ico" style="background:var(--sky)">📱</div>
+        <div class="contact-detail">
+          <div class="contact-label">Helpline</div>
+          <a href="tel:+919876543210" class="contact-value">+91 63815 72643</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ico" style="background:#E8F5E9">💬</div>
+        <div class="contact-detail">
+          <div class="contact-label">WhatsApp</div>
+          <a href="https://wa.me/6381572643" class="contact-value">Chat with us</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ico" style="background:var(--mint)">✉️</div>
+        <div class="contact-detail">
+          <div class="contact-label">Email</div>
+          <a href="mailto:info@aim2campus.in" class="contact-value">aim2campus@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-card reveal">
+      <div class="sc-title">🏢 Our Offices</div>
+      <div class="office-item">
+        <div class="office-city">Erode (HQ)</div>
+        <div class="office-addr">Mylambadi, Bhavani, Erode – 638314</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-title">Frequently Asked Questions</div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is the counselling session really free? <span class="faq-icon">+</span></button>
+    <div class="faq-a"><p>Yes! The initial counselling session is completely free. We provide honest advice and help you understand your options with no obligation. You only engage our services if you decide to proceed.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How quickly will someone call me? <span class="faq-icon">+</span></button>
+    <div class="faq-a"><p>Our team will contact you within 2 hours during office hours (9 AM – 7 PM). For bookings made after hours, you'll receive a call first thing the next morning.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Can I book a session for management quota seats? <span class="faq-icon">+</span></button>
+    <div class="faq-a"><p>Absolutely. We specialize in management quota admissions and have direct tie-ups with 200+ colleges offering management seats across all streams in Tamil Nadu.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What documents should I keep ready? <span class="faq-icon">+</span></button>
+    <div class="faq-a"><p>For the counselling call, you only need your 10th & 12th marksheets and NEET score (if applicable). Our counsellor will guide you on complete documentation during the session.</p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom2">
+    <div class="footer-logo2">Aim2Campus</div>
+    <div class="footer-links2">
+      <a href="index.html">Home</a>
+      <a href="colleges.html">Colleges</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <p>© 2025 Aim2Campus. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Nav
+  document.getElementById('burger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('open'));
+
+  // Set min date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('date').min = today;
+
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  function goStep(n) {
+    if (n > currentStep) {
+      // Basic validation
+      if (currentStep === 1) {
+        const name = document.getElementById('studentName').value.trim();
+        const mob = document.getElementById('mobile').value.trim();
+        const city = document.getElementById('city').value;
+        if (!name || !mob || !city) { alert('Please fill all required fields (*)'); return; }
+      }
+      if (currentStep === 2) {
+        const marks = document.getElementById('marks').value;
+        const stream = document.querySelector('input[name="stream"]:checked');
+        if (!marks || !stream) { alert('Please fill marks and select a stream.'); return; }
+      }
+    }
+    document.getElementById('s' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('s' + currentStep).classList.add('active');
+    // Update progress
+    for (let i = 1; i <= totalSteps; i++) {
+      const el = document.getElementById('p' + i);
+      if (el) el.classList.toggle('active', i <= currentStep);
+    }
+    document.getElementById('progLabel').textContent = `Step ${currentStep} of ${totalSteps}`;
+  }
+
+  function submitForm() {
+    const date = document.getElementById('date').value;
+    const slot = document.querySelector('input[name="slot"]:checked');
+    if (!date || !slot) { alert('Please select a date and time slot.'); return; }
+
+    const name = document.getElementById('studentName').value;
+    const mobile = document.getElementById('mobile').value;
+    const stream = document.querySelector('input[name="stream"]:checked')?.value || '—';
+    const slotVal = slot.value;
+    const mode = document.querySelector('input[name="mode"]:checked')?.value || 'Phone Call';
+    const d = new Date(date);
+    const dateStr = d.toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'});
+
+    document.getElementById('successDetails').innerHTML = `
+      <div class="success-detail-row"><span class="success-detail-label">Student</span><span class="success-detail-value">${name}</span></div>
+      <div class="success-detail-row"><span class="success-detail-label">Mobile</span><span class="success-detail-value">${mobile}</span></div>
+      <div class="success-detail-row"><span class="success-detail-label">Stream</span><span class="success-detail-value">${stream}</span></div>
+      <div class="success-detail-row"><span class="success-detail-label">Date</span><span class="success-detail-value">${dateStr}</span></div>
+      <div class="success-detail-row"><span class="success-detail-label">Time</span><span class="success-detail-value">${slotVal}</span></div>
+      <div class="success-detail-row"><span class="success-detail-label">Mode</span><span class="success-detail-value">${mode}</span></div>
+    `;
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('successState').classList.add('show');
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // Reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.12});
+  reveals.forEach(r=>observer.observe(r));
+</script>
+</body>
+</html>

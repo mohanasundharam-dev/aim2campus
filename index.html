@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aim2Campus – Tamil Nadu College Admissions</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue:   #0A4D8C;
+    --blue2:  #1565C0;
+    --teal:   #00897B;
+    --green:  #43A047;
+    --mint:   #E0F7F4;
+    --sky:    #E3F2FD;
+    --white:  #FFFFFF;
+    --off:    #F5FAFF;
+    --ink:    #0D1B2A;
+    --muted:  #5B7A99;
+    --border: #C9DEF5;
+    --grad:   linear-gradient(135deg, #0A4D8C 0%, #00897B 100%);
+    --grad2:  linear-gradient(135deg, #1565C0 0%, #43A047 100%);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 68px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(10,77,140,0.08); }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.45rem;
+    letter-spacing: -0.5px;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+  }
+  .logo span { -webkit-text-fill-color: var(--green); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: .92rem; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: .3px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-cta {
+    background: var(--grad);
+    color: #fff; border: none;
+    padding: .55rem 1.4rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600; font-size: .9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+  .hamburger {
+    display: none; flex-direction: column;
+    gap: 5px; cursor: pointer; background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--blue); border-radius: 2px;
+    transition: .3s;
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+    background: #fff;
+    padding: 1.5rem 5vw 2rem;
+    border-bottom: 1px solid var(--border);
+    flex-direction: column; gap: 1.2rem;
+    box-shadow: 0 8px 30px rgba(10,77,140,.07);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 1rem; font-weight: 500;
+    color: var(--ink); text-decoration: none;
+    padding: .5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu .nav-cta { text-align: center; margin-top: .5rem; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 110px 5vw 60px;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--off);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(0,137,123,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(10,77,140,.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--mint); color: var(--teal);
+    padding: .4rem 1rem; border-radius: 50px;
+    font-size: .82rem; font-weight: 600; letter-spacing: .5px;
+    margin-bottom: 1.4rem;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-tag::before { content: '✦'; font-size: .7rem; }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    animation: fadeUp .7s .1s ease both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    margin-top: 1.4rem;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 480px;
+    animation: fadeUp .7s .2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 2.2rem;
+    flex-wrap: wrap;
+    animation: fadeUp .7s .3s ease both;
+  }
+  .btn-primary {
+    background: var(--grad);
+    color: #fff; border: none;
+    padding: .9rem 2rem; border-radius: 50px;
+    font-weight: 600; font-size: .97rem;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .5rem;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(10,77,140,.22);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(10,77,140,.28); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--blue); border: 2px solid var(--blue);
+    padding: .9rem 1.8rem; border-radius: 50px;
+    font-weight: 600; font-size: .97rem;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .5rem;
+    transition: background .2s, color .2s;
+  }
+  .btn-ghost:hover { background: var(--blue); color: #fff; }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    animation: fadeUp .7s .4s ease both;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: .8rem; color: var(--muted); font-weight: 500; margin-top: .2rem; }
+
+  /* hero visual */
+  .hero-visual {
+    position: relative;
+    animation: fadeRight .9s .2s ease both;
+  }
+  .hero-card-stack {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .hcard {
+    background: #fff;
+    border-radius: 20px;
+    padding: 1.6rem;
+    box-shadow: 0 12px 48px rgba(10,77,140,.1);
+    border: 1px solid var(--border);
+  }
+  .hcard-main {
+    position: relative; z-index: 2;
+  }
+  .hcard-back {
+    position: absolute;
+    width: 92%; left: 4%; top: -16px;
+    background: var(--sky);
+    border-radius: 20px; height: 80px;
+    z-index: 1;
+    border: 1px solid var(--border);
+  }
+  .hcard-label {
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 1rem;
+  }
+  .college-items { display: flex; flex-direction: column; gap: .8rem; }
+  .college-row {
+    display: flex; align-items: center; gap: .9rem;
+    padding: .7rem .9rem; border-radius: 12px;
+    background: var(--off);
+    border: 1px solid var(--border);
+    transition: border-color .2s;
+  }
+  .college-row:hover { border-color: var(--teal); }
+  .college-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .college-info { flex: 1; min-width: 0; }
+  .college-name { font-size: .87rem; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .college-type { font-size: .75rem; color: var(--muted); }
+  .college-tag {
+    font-size: .7rem; font-weight: 600;
+    padding: .25rem .65rem; border-radius: 50px;
+  }
+  .tag-top { background: #E8F5E9; color: var(--green); }
+  .tag-rec { background: var(--sky); color: var(--blue2); }
+  .float-badge {
+    position: absolute;
+    background: #fff;
+    border-radius: 14px;
+    padding: .7rem 1rem;
+    box-shadow: 0 8px 32px rgba(10,77,140,.12);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .82rem; font-weight: 600;
+    z-index: 5;
+  }
+  .badge-top { top: -28px; right: -20px; }
+  .badge-bottom { bottom: -24px; left: -16px; }
+  .badge-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 3px rgba(67,160,71,.2);
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--ink);
+    padding: .9rem 0;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-size: .82rem; font-weight: 600;
+    color: rgba(255,255,255,.5);
+    letter-spacing: 1px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .marquee-item::after { content: '◆'; color: var(--teal); }
+
+  .nav-cta sxp {
+    -webkit-text-fill-color: var(--green);
+}
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 90px 5vw; }
+  .section-eyebrow {
+    font-size: .78rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: .8rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+    font-weight: 800; letter-spacing: -1px;
+    color: var(--ink); line-height: 1.15;
+  }
+  .section-sub {
+    margin-top: .9rem;
+    font-size: 1rem; line-height: 1.75;
+    color: var(--muted); max-width: 520px;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how { background: var(--white); }
+  .how-head { text-align: center; margin-bottom: 4rem; }
+  .how-head .section-sub { margin: .9rem auto 0; }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    position: relative;
+  }
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 32px; left: 12%;
+    right: 12%; height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--teal));
+    opacity: .2;
+    z-index: 0;
+  }
+  .step-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--off);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    position: relative; z-index: 1;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(10,77,140,.1); }
+  .step-num {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--grad);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    display: grid; place-items: center;
+    margin: 0 auto 1.2rem;
+    box-shadow: 0 6px 20px rgba(10,77,140,.2);
+  }
+  .step-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+  .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: .5rem; color: var(--ink); }
+  .step-desc { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+
+  /* ─── SERVICES ─── */
+  .services { background: var(--ink); }
+  .services .section-eyebrow { color: var(--mint); }
+  .services .section-title { color: #fff; }
+  .services .section-sub { color: rgba(255,255,255,.5); }
+  .services-head { margin-bottom: 3.5rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .svc-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: background .3s, border-color .3s, transform .3s;
+    position: relative; overflow: hidden;
+  }
+  .svc-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--grad);
+    transform: scaleX(0);
+    transition: transform .3s;
+    transform-origin: left;
+  }
+  .svc-card:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.15); transform: translateY(-4px); }
+  .svc-card:hover::before { transform: scaleX(1); }
+  .svc-icon {
+    width: 50px; height: 50px; border-radius: 14px;
+    display: grid; place-items: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+  }
+  .svc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: .6rem; }
+  .svc-desc { font-size: .88rem; color: rgba(255,255,255,.48); line-height: 1.7; }
+
+  /* ─── WHY ─── */
+  .why {
+    background: var(--off);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 5rem;
+    padding: 90px 5vw;
+  }
+  .why-features { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2.2rem; }
+  .why-feature {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem 1.4rem;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .why-feature:hover { box-shadow: 0 8px 32px rgba(10,77,140,.08); transform: translateX(4px); }
+  .feat-ico {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .feat-text {}
+  .feat-title { font-weight: 700; font-size: .95rem; color: var(--ink); margin-bottom: .25rem; }
+  .feat-desc { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+  .why-visual {
+    position: relative;
+  }
+  .results-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(10,77,140,.1);
+    border: 1px solid var(--border);
+  }
+  .results-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    color: var(--ink); margin-bottom: 1.5rem;
+  }
+  .result-rows { display: flex; flex-direction: column; gap: .9rem; }
+  .result-row { display: flex; align-items: center; gap: 1rem; }
+  .result-label { font-size: .82rem; color: var(--muted); flex: 0 0 100px; }
+  .result-bar-wrap { flex: 1; background: var(--border); border-radius: 50px; height: 8px; overflow: hidden; }
+  .result-bar { height: 100%; border-radius: 50px; background: var(--grad); }
+  .result-pct { font-size: .82rem; font-weight: 700; color: var(--ink); flex: 0 0 36px; text-align: right; }
+  .mini-badges { display: flex; gap: .7rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .mini-badge {
+    padding: .35rem .9rem; border-radius: 50px;
+    font-size: .75rem; font-weight: 600;
+    background: var(--mint); color: var(--teal);
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials { background: var(--white); }
+  .testi-head { text-align: center; margin-bottom: 3rem; }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .testi-card {
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    transition: transform .3s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .stars { color: #F59E0B; font-size: .9rem; margin-bottom: 1rem; }
+  .testi-text { font-size: .9rem; line-height: 1.75; color: var(--muted); margin-bottom: 1.4rem; }
+  .testi-author { display: flex; align-items: center; gap: .8rem; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: .95rem; color: #fff;
+  }
+  .testi-name { font-weight: 700; font-size: .9rem; color: var(--ink); }
+  .testi-role { font-size: .78rem; color: var(--muted); }
+
+  /* ─── CTA BANNER ─── */
+  .cta-banner {
+    background: var(--grad);
+    padding: 80px 5vw;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") repeat;
+  }
+  .cta-banner h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(2rem, 4vw, 3.2rem);
+    color: #fff; letter-spacing: -1px;
+    position: relative;
+  }
+  .cta-banner p {
+    color: rgba(255,255,255,.7);
+    font-size: 1.05rem; margin-top: .9rem;
+    position: relative;
+  }
+  .cta-banner .hero-actions {
+    justify-content: center; margin-top: 2rem;
+    animation: none;
+  }
+  .btn-white {
+    background: #fff; color: var(--blue);
+    padding: .9rem 2rem; border-radius: 50px;
+    font-weight: 700; font-size: .97rem;
+    text-decoration: none; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: .5rem;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
+  .btn-outline-white {
+    background: transparent; color: #fff;
+    border: 2px solid rgba(255,255,255,.5);
+    padding: .9rem 1.8rem; border-radius: 50px;
+    font-weight: 600; font-size: .97rem;
+    text-decoration: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: .5rem;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    padding: 60px 5vw 30px;
+    color: rgba(255,255,255,.45);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand {}
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: .8rem;
+  }
+  .footer-tagline { font-size: .85rem; line-height: 1.7; max-width: 240px; }
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: .9rem;
+    color: #fff; margin-bottom: 1rem;
+    letter-spacing: .3px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+  .footer-col ul a { font-size: .85rem; color: rgba(255,255,255,.42); text-decoration: none; transition: color .2s; }
+  .footer-col ul a:hover { color: var(--mint); }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.08); margin-bottom: 1.5rem; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: .8rem; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeRight { from { opacity: 0; transform: translateX(32px); } to { opacity: 1; transform: translateX(0); } }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; padding-top: 100px; text-align: center; gap: 3rem; }
+    .hero-sub { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; gap: 2rem; }
+    .hero-card-stack { max-width: 340px; }
+    .badge-top { right: -8px; }
+    .badge-bottom { left: -8px; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid::before { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why { grid-template-columns: 1fr; gap: 3rem; padding: 60px 5vw; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+  @media (max-width: 540px) {
+    section { padding: 60px 5vw; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .hero h1 { font-size: 2.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="logo" href="index.html">Aim2<span>Campus</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="colleges.html">Colleges</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+   <a class="nav-cta" href="consulting.html"><span class="sxp">+91 63815 72643</span></a>
+  <a class="nav-cta" href="consulting.html">Free Counselling →</a>
+  <button class="hamburger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how">How It Works</a>
+  <a href="#services">Services</a>
+  <a href="colleges.html">Colleges</a>
+  <a href="#testimonials">Reviews</a>
+  <a class="nav-cta" href="consulting.html">Free Counselling →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Tamil Nadu's #1 Admission Consultants</div>
+    <h1>Your Dream<br><em>College Starts</em><br>Right Here</h1>
+    <p class="hero-sub">Expert guidance for TNEA, NEET & Management quota admissions. We've helped 10,000+ students secure seats in top Tamil Nadu colleges since 2008.</p>
+    <div class="hero-actions">
+      <a href="consulting.html" class="btn-primary">Book Free Counselling ✦</a>
+      <a href="colleges.html" class="btn-ghost">Explore Colleges →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">10K+</div>
+        <div class="stat-label">Students Placed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">350+</div>
+        <div class="stat-label">Partner Colleges</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years Expertise</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hcard-back"></div>
+      <div class="hcard hcard-main">
+        <div class="hcard-label">🎯 Top Matched Colleges</div>
+        <div class="college-items">
+          <div class="college-row">
+            <div class="college-icon" style="background:#E3F2FD">🏛️</div>
+            <div class="college-info">
+              <div class="college-name">PSG College of Tech</div>
+              <div class="college-type">Engineering · Coimbatore</div>
+            </div>
+            <span class="college-tag tag-top">Top</span>
+          </div>
+          <div class="college-row">
+            <div class="college-icon" style="background:#E8F5E9">🎓</div>
+            <div class="college-info">
+              <div class="college-name">Coimbatore Institute of Technology</div>
+              <div class="college-type">Engineering · Coimbatore</div>
+            </div>
+            <span class="college-tag tag-rec">Match</span>
+          </div>
+          <div class="college-row">
+            <div class="college-icon" style="background:#F3E5F5">⚕️</div>
+            <div class="college-info">
+              <div class="college-name">KMCH Medical College</div>
+              <div class="college-type">Medicine · Coimbatore</div>
+            </div>
+            <span class="college-tag tag-rec">Match</span>
+          </div>
+          <div class="college-row">
+            <div class="college-icon" style="background:#FFF3E0">💡</div>
+            <div class="college-info">
+              <div class="college-name">Amrita School of Engg</div>
+              <div class="college-type">Engineering · Coimbatore</div>
+            </div>
+            <span class="college-tag tag-top">Top</span>
+          </div>
+        </div>
+      </div>
+      <div class="float-badge badge-top">
+        <div class="badge-dot"></div>
+        <span>98% Placement Rate</span>
+      </div>
+      <div class="float-badge badge-bottom">
+        🎉 <span>2,500+ seats secured this year</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Engineering</span>
+    <span class="marquee-item">Medicine</span>
+    <span class="marquee-item">Architecture</span>
+    <span class="marquee-item">Pharmacy</span>
+    <span class="marquee-item">Arts & Science</span>
+    <span class="marquee-item">Law</span>
+    <span class="marquee-item">Management</span>
+    <span class="marquee-item">TNEA Counselling</span>
+    <span class="marquee-item">NEET Guidance</span>
+    <span class="marquee-item">Management Quota</span>
+    <span class="marquee-item">Engineering</span>
+    <span class="marquee-item">Medicine</span>
+    <span class="marquee-item">Architecture</span>
+    <span class="marquee-item">Pharmacy</span>
+    <span class="marquee-item">Arts & Science</span>
+    <span class="marquee-item">Law</span>
+    <span class="marquee-item">Management</span>
+    <span class="marquee-item">TNEA Counselling</span>
+    <span class="marquee-item">NEET Guidance</span>
+    <span class="marquee-item">Management Quota</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-head reveal">
+    <div class="section-eyebrow">Process</div>
+    <h2 class="section-title">Simple 4-Step Journey<br>to Your Dream Seat</h2>
+    <p class="section-sub">From your first consultation to your college admission letter — we guide you every single step.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">Share Your Profile</div>
+      <div class="step-desc">Tell us your marks, preferred stream & budget. Our experts analyze your eligibility instantly.</div>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.1s">
+      <div class="step-num">02</div>
+      <div class="step-icon">🔍</div>
+      <div class="step-title">Get College Shortlist</div>
+      <div class="step-desc">Receive a curated list of best-fit colleges ranked by your merit, location preference & cutoff.</div>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.2s">
+      <div class="step-num">03</div>
+      <div class="step-icon">🤝</div>
+      <div class="step-title">Expert Counselling</div>
+      <div class="step-desc">One-on-one session with our senior advisors. We handle TNEA, Management & NRI quota.</div>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.3s">
+      <div class="step-num">04</div>
+      <div class="step-icon">🎓</div>
+      <div class="step-title">Confirm Your Seat</div>
+      <div class="step-desc">We assist with documentation, fee payment & hostel coordination till you step on campus.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-head reveal">
+    <div class="section-eyebrow">What We Offer</div>
+    <h2 class="section-title" style="color:#fff">Complete Admission<br>Support Under One Roof</h2>
+    <p class="section-sub">Whether it's engineering, medicine, or management — we specialize in every stream.</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card reveal">
+      <div class="svc-icon" style="background:rgba(0,137,123,.15)">⚙️</div>
+      <div class="svc-title">Engineering Admissions</div>
+      <div class="svc-desc">TNEA counselling support, cutoff analysis, college & branch selection for all engineering streams across Tamil Nadu.</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.1s">
+      <div class="svc-icon" style="background:rgba(67,160,71,.15)">⚕️</div>
+      <div class="svc-title">Medical Admissions</div>
+      <div class="svc-desc">NEET score-based college matching, management quota seats in MBBS, BDS, BAMS & Nursing colleges.</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.2s">
+      <div class="svc-icon" style="background:rgba(21,101,192,.15)">🏢</div>
+      <div class="svc-title">Management Quota</div>
+      <div class="svc-desc">Direct seat allotment through management quota in top private colleges. Transparent process, no hidden fees.</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.3s">
+      <div class="svc-icon" style="background:rgba(245,158,11,.12)">📜</div>
+      <div class="svc-title">Documentation Help</div>
+      <div class="svc-desc">Complete support for certificates, community certificates, income proof, scholarship applications & NOC.</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.4s">
+      <div class="svc-icon" style="background:rgba(236,72,153,.1)">🎯</div>
+      <div class="svc-title">Career Counselling</div>
+      <div class="svc-desc">Psychometric assessments & expert career mapping to choose the right branch and college for your future.</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.5s">
+      <div class="svc-icon" style="background:rgba(139,92,246,.1)">🌐</div>
+      <div class="svc-title">Lateral Entry & NRI Quota</div>
+      <div class="svc-desc">Specialized guidance for lateral entry diploma students and NRI/OCI quota admissions in top colleges.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY AIM2CAMPUS -->
+<section class="why" id="why">
+  <div>
+    <div class="section-eyebrow reveal">Why Choose Us</div>
+    <h2 class="section-title reveal">Trusted by Thousands<br>of TN Families</h2>
+    <p class="section-sub reveal">We don't just consult — we become your admission partners and deliver real results.</p>
+    <div class="why-features">
+      <div class="why-feature reveal">
+        <div class="feat-ico" style="background:#E3F2FD">🎯</div>
+        <div class="feat-text">
+          <div class="feat-title">Cut-off Expertise</div>
+          <div class="feat-desc">15+ years of data on every college's cutoff trends. We predict your chances accurately.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal" style="transition-delay:.1s">
+        <div class="feat-ico" style="background:#E8F5E9">🔒</div>
+        <div class="feat-text">
+          <div class="feat-title">100% Transparent Fees</div>
+          <div class="feat-desc">No hidden charges. No fake promises. You pay only if you get the seat you want.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal" style="transition-delay:.2s">
+        <div class="feat-ico" style="background:#E0F7F4">📞</div>
+        <div class="feat-text">
+          <div class="feat-title">24/7 Parent Support</div>
+          <div class="feat-desc">Dedicated counsellors available round the clock during admission season.</div>
+        </div>
+      </div>
+      <div class="why-feature reveal" style="transition-delay:.3s">
+        <div class="feat-ico" style="background:#FFF3E0">🏆</div>
+        <div class="feat-text">
+          <div class="feat-title">350+ College Network</div>
+          <div class="feat-desc">Strong relationships with all top private & government-aided colleges in Tamil Nadu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="why-visual reveal">
+    <div class="results-card">
+      <div class="results-title">📊 Our Success Rate by Stream</div>
+      <div class="result-rows">
+        <div class="result-row">
+          <div class="result-label">Engineering</div>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:96%"></div></div>
+          <div class="result-pct">96%</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Medicine</div>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:91%"></div></div>
+          <div class="result-pct">91%</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Architecture</div>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:88%"></div></div>
+          <div class="result-pct">88%</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Pharmacy</div>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:94%"></div></div>
+          <div class="result-pct">94%</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Management</div>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:99%"></div></div>
+          <div class="result-pct">99%</div>
+        </div>
+      </div>
+      <div class="mini-badges">
+        <span class="mini-badge">✅ TNEA Certified</span>
+        <span class="mini-badge">🏅 Award 2023</span>
+        <span class="mini-badge">📍 Pan Tamil Nadu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testi-head reveal">
+    <div class="section-eyebrow">Student Stories</div>
+    <h2 class="section-title">What Our Students Say</h2>
+    <p class="section-sub" style="margin:auto">Real families, real results. Here's how Aim2Campus changed lives.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Got into PSG Tech's CS branch with management quota. The team knew exactly which college had seats available. Couldn't have done this without Aim2Campus!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:var(--grad)">AK</div>
+        <div>
+          <div class="testi-name">Arun Karthik</div>
+          <div class="testi-role">B.E. CSE · PSG College of Technology</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:.1s">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"My NEET score was borderline. They helped me secure a BDS seat in a top dental college in Chennai. The documentation support was excellent!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#43A047,#00897B)">PM</div>
+        <div>
+          <div class="testi-name">Priya Meena</div>
+          <div class="testi-role">BDS · Saveetha Dental College</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:.2s">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"We are from a small town and had no idea how TNEA works. Aim2Campus explained everything step by step. My son got into Amrita for Mechanical!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#1565C0,#43A047)">SR</div>
+        <div>
+          <div class="testi-name">Suresh Raj (Parent)</div>
+          <div class="testi-role">Erode · Son placed in Amrita University</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Ready to Secure Your<br>Dream College Seat?</h2>
+  <p>Join 10,000+ students who chose smart — choose Aim2Campus.</p>
+  <div class="hero-actions" style="justify-content:center">
+    <a href="consulting.html" class="btn-white">📋 Book Free Counselling</a>
+    <a href="tel:+919876543210" class="btn-outline-white">📞 Call Now</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Aim2Campus</div>
+      <p class="footer-tagline">Tamil Nadu's most trusted college admission consulting partner since 2008.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Engineering Admissions</a></li>
+        <li><a href="#">Medical Admissions</a></li>
+        <li><a href="#">Management Quota</a></li>
+        <li><a href="#">Lateral Entry</a></li>
+        <li><a href="#">NRI Quota</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="consulting.html">Free Counselling</a></li>
+        <li><a href="colleges.html">College List</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919876543210">+91 63815 72643</a></li>
+        <li><a href="mailto:info@aim2campus.in">aim2campus@gmail.com</a></li>
+        <li><a href="#">Erode Office</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="footer-divider"/>
+  <div class="footer-bottom">
+    <p>© 2025 Aim2Campus. All rights reserved.</p>
+    <p>Made with ♥ for Tamil Nadu students</p>
+  </div>
+</footer>
+
+<script>
+  // NAV scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Hamburger
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
